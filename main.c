@@ -82,17 +82,23 @@ float X=-80.0;
 float Y=-80.0;
 float A=136.0;
 float B=130.0;
+float cols[] = {0.5, 0.5, 0.5};
 void rand_rect()
 {
 	float r;
 	r = mrand()-0.5;
-	X += r*10;
+	X += r*2;
 	r = mrand()-0.5;
-	Y += r*3;
+	Y += r*2;
 	r = mrand()-0.5;
-	A += r*20;
+	A += r*3;
 	r = mrand()-0.5;
-	B += r*6;
+	B += r*3;
+	cols[0] += 0.10*(mrand()-0.5);
+	cols[1] += 0.10*(mrand()-0.5);
+	cols[2] += 0.10*(mrand()-0.5);
+	glColor3f(cols[0], cols[1], cols[2]);
+
 	rect(X, Y, A, B);
 }
 
@@ -105,15 +111,15 @@ void RenderScene(void)
 	rect(-33.0, -31.0, 31.0, 63.0);
 	rect2(32.0, -31.0, 31.0, 63.0);
 	triangle();
-//	sierp(-80.0, -80.0, 160.0);
+	sierp(-80.0, -80.0, 160.0);
 
-//	glClear(GL_COLOR_BUFFER_BIT);
-//	float r, g, b;
-//	r=mrand();
-//	r=mrand();
-//	r=mrand();
-//	glColor3f(r, g, b);
-//	rand_rect();
+	glClear(GL_COLOR_BUFFER_BIT);
+	float r, g, b;
+	r=mrand();
+	r=mrand();
+	r=mrand();
+	glColor3f(r, g, b);
+	rand_rect();
 	glFlush();
 	// Przekazanie poleceń rysujących do wykonania
 }
