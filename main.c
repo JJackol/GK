@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 
 #include <GL/gl.h>
@@ -46,20 +47,54 @@ void triangle(){
 	glEnd();
 }
 
-void sierp(float x, float y, float a)
-{
-	if (a<10)
-		return;
-	float new_a = a/3;
-	glColor3f(0.1, 0.9, 0.1);
-	rect(x, y, a, a);
-
-
-	glColor3f(0.1, 0.1, 0.3);
-	rect(x+a/3, y+a/3, a/3, new_a);
-
+float mrand(){
+	return  (float)rand()/(float)(RAND_MAX);
 }
 
+void sierp(float x, float y, float a)
+{
+	if (a<3)
+		return;
+	glColor3f(0.9, 0.9, 0.4);
+	rect(x, y, a, a);
+	a = a/3;
+
+	sierp(x, y , a);
+	sierp(x+a, y, a);
+	sierp(x+2*a , y, a);
+
+	sierp(x, y+a, a);
+	sierp(x+a, y+a, a);
+	sierp(x+2*a, y+a, a);
+
+	sierp(x, y+2*a, a);
+	sierp(x+a, y+2*a, a);
+	sierp(x+2*a, y+2*a, a);
+
+	float r = 0.7*mrand() + 0.2;
+	float b = 0.7*mrand() + 0.2;
+	glColor3f(r, 0.1, b);
+	rect(x+a, y+a, a, a);
+}
+
+
+float X=-80.0;
+float Y=-80.0;
+float A=136.0;
+float B=130.0;
+void rand_rect()
+{
+	float r;
+	r = mrand()-0.5;
+	X += r*10;
+	r = mrand()-0.5;
+	Y += r*3;
+	r = mrand()-0.5;
+	A += r*20;
+	r = mrand()-0.5;
+	B += r*6;
+	rect(X, Y, A, B);
+}
 
 void RenderScene(void)
 {
@@ -70,7 +105,15 @@ void RenderScene(void)
 	rect(-33.0, -31.0, 31.0, 63.0);
 	rect2(32.0, -31.0, 31.0, 63.0);
 	triangle();
-	sierp(-80.0, -80.0, 160.0);
+//	sierp(-80.0, -80.0, 160.0);
+
+//	glClear(GL_COLOR_BUFFER_BIT);
+//	float r, g, b;
+//	r=mrand();
+//	r=mrand();
+//	r=mrand();
+//	glColor3f(r, g, b);
+//	rand_rect();
 	glFlush();
 	// Przekazanie poleceń rysujących do wykonania
 }
@@ -107,6 +150,8 @@ void ChangeSize(GLsizei horizontal, GLsizei vertical)
 
 void main(int argc, char** argv)
 {
+	srand(time(NULL));
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
 
