@@ -15,6 +15,7 @@ void rect(float x, float y, float a, float b)
 		glVertex2f(x, y);
 		glVertex2f(x+a, y);
 		glVertex2f(x+a, y+b);
+		
 
 		glVertex2f(x+a, y+b);
 		glVertex2f(x, y+b);
@@ -38,7 +39,7 @@ void triangle(){
 	glBegin(GL_TRIANGLES);
 
 	glColor3f(0.1, 0.9, 0.1);
-	glVertex2f(-40.0, -30.0);
+	glVertex2f(-40.0, -300);
 	glColor3f(0.9, 0.1, 0.1);
 	glVertex2f(40.0, -30.0);
 	glColor3f(0.1, 0.1, 0.9);
@@ -53,7 +54,7 @@ float mrand(){
 
 void sierp(float x, float y, float a)
 {
-	if (a<3)
+	if (a<0.3)
 		return;
 	glColor3f(0.9, 0.9, 0.4);
 	rect(x, y, a, a);
@@ -113,13 +114,13 @@ void RenderScene(void)
 	triangle();
 	sierp(-80.0, -80.0, 160.0);
 
-	glClear(GL_COLOR_BUFFER_BIT);
-	float r, g, b;
-	r=mrand();
-	r=mrand();
-	r=mrand();
-	glColor3f(r, g, b);
-	rand_rect();
+//	glClear(GL_COLOR_BUFFER_BIT);
+//	float r, g, b;
+//	r=mrand();
+//	r=mrand();
+//	r=mrand();
+//	glColor3f(r, g, b);
+//	rand_rect();
 	glFlush();
 	// Przekazanie poleceń rysujących do wykonania
 }
