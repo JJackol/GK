@@ -7,7 +7,7 @@ all: $(TARGETS)
 	g++ $< -o $@ -lGL -lglut -lm
 
 clean: 
-	rm -f main*.cpp
+	rm -f main*.o
 
 purge: clean
 	rm -f $(TARGETS)
